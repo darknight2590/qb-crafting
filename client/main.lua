@@ -2,33 +2,11 @@
 
 local QBCore = exports['qb-core']:GetCoreObject()
 local itemInfos = {}
-local maxDistance = 1.25
 
 -- Functions
 
-function GetThresholdItems()
-	ItemsToItemInfo()
-	local items = {}
-	for k, item in pairs(Config.CraftingItems) do
-		if QBCore.Functions.GetPlayerData().metadata["craftingrep"] >= Config.CraftingItems[k].threshold then
-			items[k] = Config.CraftingItems[k]
-		end
-	end
-	return items
-end
 
-function GetAttachmentThresholdItems()
-	SetupAttachmentItemsInfo()
-	local items = {}
-	for k, item in pairs(Config.AttachmentCrafting["items"]) do
-		if QBCore.Functions.GetPlayerData().metadata["attachmentcraftingrep"] >= Config.AttachmentCrafting["items"][k].threshold then
-			items[k] = Config.AttachmentCrafting["items"][k]
-		end
-	end
-	return items
-end
-
-function ItemsToItemInfo()
+local function ItemsToItemInfo()
 	itemInfos = {
 		[1] = {costs = QBCore.Shared.Items["metalscrap"]["label"] .. ": 22x, " ..QBCore.Shared.Items["plastic"]["label"] .. ": 32x."},
 		[2] = {costs = QBCore.Shared.Items["metalscrap"]["label"] .. ": 30x, " ..QBCore.Shared.Items["plastic"]["label"] .. ": 42x."},
@@ -53,10 +31,10 @@ function ItemsToItemInfo()
 			info = itemInfos[item.slot],
 			label = itemInfo["label"],
 			description = itemInfo["description"] ~= nil and itemInfo["description"] or "",
-			weight = itemInfo["weight"], 
-			type = itemInfo["type"], 
-			unique = itemInfo["unique"], 
-			useable = itemInfo["useable"], 
+			weight = itemInfo["weight"],
+			type = itemInfo["type"],
+			unique = itemInfo["unique"],
+			useable = itemInfo["useable"],
 			image = itemInfo["image"],
 			slot = item.slot,
 			costs = item.costs,
@@ -67,7 +45,7 @@ function ItemsToItemInfo()
 	Config.CraftingItems = items
 end
 
-function SetupAttachmentItemsInfo()
+local function SetupAttachmentItemsInfo()
 	itemInfos = {
 		[1] = {costs = QBCore.Shared.Items["metalscrap"]["label"] .. ": 140x, " .. QBCore.Shared.Items["steel"]["label"] .. ": 250x, " .. QBCore.Shared.Items["rubber"]["label"] .. ": 60x"},
 		[2] = {costs = QBCore.Shared.Items["metalscrap"]["label"] .. ": 165x, " .. QBCore.Shared.Items["steel"]["label"] .. ": 285x, " .. QBCore.Shared.Items["rubber"]["label"] .. ": 75x"},
@@ -88,10 +66,10 @@ function SetupAttachmentItemsInfo()
 			info = itemInfos[item.slot],
 			label = itemInfo["label"],
 			description = itemInfo["description"] ~= nil and itemInfo["description"] or "",
-			weight = itemInfo["weight"], 
-			type = itemInfo["type"], 
-			unique = itemInfo["unique"], 
-			useable = itemInfo["useable"], 
+			weight = itemInfo["weight"],
+			type = itemInfo["type"],
+			unique = itemInfo["unique"],
+			useable = itemInfo["useable"],
 			image = itemInfo["image"],
 			slot = item.slot,
 			costs = item.costs,
@@ -102,7 +80,29 @@ function SetupAttachmentItemsInfo()
 	Config.AttachmentCrafting["items"] = items
 end
 
-function DrawText3D(x, y, z, text)
+local function GetThresholdItems()
+	ItemsToItemInfo()
+	local items = {}
+	for k, item in pairs(Config.CraftingItems) do
+		if QBCore.Functions.GetPlayerData().metadata["craftingrep"] >= Config.CraftingItems[k].threshold then
+			items[k] = Config.CraftingItems[k]
+		end
+	end
+	return items
+end
+
+local function GetAttachmentThresholdItems()
+	SetupAttachmentItemsInfo()
+	local items = {}
+	for k, item in pairs(Config.AttachmentCrafting["items"]) do
+		if QBCore.Functions.GetPlayerData().metadata["attachmentcraftingrep"] >= Config.AttachmentCrafting["items"][k].threshold then
+			items[k] = Config.AttachmentCrafting["items"][k]
+		end
+	end
+	return items
+end
+
+local function DrawText3D(x, y, z, text)
 	SetTextScale(0.35, 0.35)
     SetTextFont(4)
     SetTextProportional(1)
