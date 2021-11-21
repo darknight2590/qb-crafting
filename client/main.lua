@@ -67,7 +67,6 @@ local function SetupAttachmentItemsInfo()
 			label = itemInfo["label"],
 			description = itemInfo["description"] ~= nil and itemInfo["description"] or "",
 			weight = itemInfo["weight"],
-			type = itemInfo["type"],
 			unique = itemInfo["unique"],
 			useable = itemInfo["useable"],
 			image = itemInfo["image"],
